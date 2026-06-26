@@ -18,8 +18,8 @@ export default function App() {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const discordLink = "https://discord.gg/ng7zBJnsxb";
 
-  const [path] = useState(() => window.location.pathname);
-  const [searchParams] = useState(() => new URLSearchParams(window.location.search));
+  const path = window.location.pathname;
+  const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get("token");
 
   const [tokenStatus, setTokenStatus] = useState<{ checkpoint1: boolean; checkpoint2: boolean } | null>(null);
@@ -304,14 +304,14 @@ export default function App() {
       </section>
 
       <section id="interface-section" className="py-28 border-t border-zinc-900/85 bg-zinc-950 relative">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-          <div className="relative group lg:col-span-2">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
+          <div className="relative group lg:col-span-3 inline-flex justify-center w-fit mx-auto">
             <div className="absolute -inset-1 bg-gradient-to-tr from-white/5 to-transparent rounded-[2.5rem] blur-xl opacity-40 pointer-events-none" />
             <img 
               src="/image.png" 
               alt="Pearl User Interface mockup" 
               referrerPolicy="no-referrer"
-              className="w-full aspect-[4/3] object-cover rounded-[2rem] border border-zinc-800/80 shadow-2xl filter brightness-[0.75] transition-transform duration-500"
+              className="block max-w-full w-auto h-auto rounded-[2rem] border border-zinc-800/80 shadow-2xl filter brightness-[0.75] transition-transform duration-500"
             />
           </div>
 

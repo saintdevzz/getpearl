@@ -11,12 +11,27 @@ const port = process.env.PORT || 3001;
 
 const supabaseUrl = process.env.SUPABASE_URL || '';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://getpearly.vercel.app';
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey, {
   auth: {
     persistSession: false
   }
 });
+
+function getFrontendBaseUrl(req: express.Request) {
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    return FRONTEND_URL;
+  }
+
+  const host = req.headers.host;
+  const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+  return host ? `${protocol}://${host}` : FRONTEND_URL;
+}
 
 app.use(express.json());
 
@@ -37,8 +52,9 @@ app.use((req, res, next) => {
   const origin = req.headers.origin || '';
   const allowedOrigins = [
     'http://localhost:3000',
-    'http://localhost:5173', // Vite dev
-    process.env.FRONTEND_URL || 'https://yourdomain.com'
+    'http://localhost:5173',
+    'https://getpearly.vercel.app',
+    process.env.FRONTEND_URL || 'https://getpearly.vercel.app'
   ];
   
   if (allowedOrigins.includes(origin)) {
@@ -122,18 +138,8 @@ app.get('/api/link', async (req, res) => {
   }
 
   try {
-    // Get the proper hostname for callbacks
-    let host = req.headers.host || 'localhost:3000';
-    
-    // On Vercel, use the VERCEL_URL environment variable if available
-    if (process.env.VERCEL_URL) {
-      host = process.env.VERCEL_URL;
-    }
-    
-    // Force HTTPS on production (except localhost)
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : (req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http');
-    const callbackUrl = `${protocol}://${host}/api/callback?checkpoint=${encodeURIComponent(checkpoint)}&token=${encodeURIComponent(token)}`;
-
+      const frontendBaseUrl = getFrontendBaseUrl(req);
+      const callbackUrl = `${frontendBaseUrl}/api/callback?checkpoint=${encodeURIComponent(checkpoint)}&token=${encodeURIComponent(token)}`;
     let redirectUrl = callbackUrl;
 
     if (provider === 'lootlabs') {
@@ -244,14 +250,8 @@ app.get('/api/callback', async (req, res) => {
       return res.status(500).send('Failed to update session');
     }
 
-    // Get proper redirect URL
-    let host = req.headers.host || 'localhost:3000';
-    if (process.env.VERCEL_URL) {
-      host = process.env.VERCEL_URL;
-    }
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : (req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http');
-    
-    res.redirect(`${protocol}://${host}/getkey?token=${encodeURIComponent(token)}`);
+    const frontendBaseUrl = getFrontendBaseUrl(req);
+    res.redirect(`${frontendBaseUrl}/getkey?token=${encodeURIComponent(token)}`);
   } catch (e) {
     res.status(500).send('Internal server error');
   }
