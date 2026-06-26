@@ -304,8 +304,8 @@ export default function App() {
       </section>
 
       <section id="interface-section" className="py-28 border-t border-zinc-900/85 bg-zinc-950 relative">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="relative group">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+          <div className="relative group lg:col-span-2">
             <div className="absolute -inset-1 bg-gradient-to-tr from-white/5 to-transparent rounded-[2.5rem] blur-xl opacity-40 pointer-events-none" />
             <img 
               src="/image.png" 
@@ -399,20 +399,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-12 p-6 border border-zinc-900 bg-zinc-950/30 rounded-full flex flex-col sm:flex-row items-center justify-between gap-4 px-8">
-            <div className="flex items-center gap-3">
-              <Sparkles className="w-5 h-5 text-white animate-pulse" />
-              <span className="text-sm font-semibold text-zinc-350">
-                We have custom themes built directly into the client.
-              </span>
-            </div>
-            <button 
-              onClick={() => showToast("Pearl loads pre-configured themes automatically")} 
-              className="text-xs bg-white text-black px-6 py-3 font-extrabold rounded-full hover:bg-neutral-200 transition-colors"
-            >
-              Learn More
-            </button>
-          </div>
+
         </div>
       </section>
 
