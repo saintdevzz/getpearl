@@ -308,7 +308,7 @@ export default function App() {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-tr from-white/5 to-transparent rounded-[2.5rem] blur-xl opacity-40 pointer-events-none" />
             <img 
-              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" 
+              src="/image.png" 
               alt="Pearl User Interface mockup" 
               referrerPolicy="no-referrer"
               className="w-full aspect-[4/3] object-cover rounded-[2rem] border border-zinc-800/80 shadow-2xl filter brightness-[0.75] transition-transform duration-500"
@@ -318,7 +318,7 @@ export default function App() {
           <div className="flex flex-col gap-6">
             <span className="text-xs text-zinc-500 font-bold uppercase tracking-wider block">Interface Highlights</span>
             <h2 className="font-bold text-4xl sm:text-5xl tracking-tight leading-snug text-white">
-              Ui interface of pearl very clean very easy to use and shi
+              Clean, Powerful Interface Design
             </h2>
             <p className="text-zinc-400 font-light leading-relaxed text-sm sm:text-base font-sans">
               Say goodbye to complicated setups, cluttered menus, and aggressive ads. Pearl provides a completely stripped-back, high-contrast, pure dark command window designed to execute whatever script you throw at it in milliseconds.
