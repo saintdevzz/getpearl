@@ -1,0 +1,6 @@
+{
+  "name": "Pearl",
+  "description": "A minimalist, high-performance landing page for Pearl.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
